@@ -2,8 +2,6 @@
 
 <h2><b>Description</b></h2>
 This research project goes through the process of analyzing the network traffic of a VM on Wireshark after running a SYN flood attack program, and noting observations. The point of the project was to analyze what characteristics are indicative of certain attacks (in this case SYN Flood attacks), how we can detect those attacks, how we can prevent those attacks and how we can recover any damages produced by these attacks.
-<br />
-
 
 <h2><b>Languages and Utilities</b></h2>
 
@@ -32,7 +30,6 @@ This research project goes through the process of analyzing the network traffic 
   SYN Flood Attacks: <br/>
   <img src="https://i.imgur.com/QZqwBDZ.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
 </p>
-<br />
 <p>
   By detecting the number of connections that are being made over short periods of time, we’ll notice abnormally large amounts of packets being sent to the destination IP address and port. Usually, the destination port number is a well-known port like port 80, and the destination IP address is always the same as the victim machine. Therefore, our first feature should be the average connections made to the destination port and destination IP address per second. Since bursts of SYN flooding can go from 0 to 2400 requests per second, once it reaches a certain threshold of requests per second, it gives enough evidence to stop the attack before it congests the network.
 </p>
@@ -68,7 +65,6 @@ This research project goes through the process of analyzing the network traffic 
   Wireshark IO Graphs: <br/>
   <img src="https://i.imgur.com/Gm5IO2X.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
 </p>
-<br />
 <p>
   Notice the time it takes from one packet request to another. The most time it takes for two TCP requests to reach the server is ~1 millisecond.
 </p>
