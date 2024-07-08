@@ -16,21 +16,21 @@ This research project goes through the process of analyzing the network traffic 
 
 <h2><b>Project Report</b></h2>
 <p>
-  The attack chosen for this project is a type of Denial-of-Service attack called a SYN flood. Denial-of-Service attacks’ main function is to halt a user’s access to network services through error-causing methods. As networks have a certain flow installed within them, that flow can also be congested by means of either saturating the bandwidth of a certain site, by breaking down the web servers on an application level, or by consuming the resources of a server. In this case, a SYN flood functions under the protocol type, and is used for consuming the server’s resources to deny network access to anyone that regularly uses that server.
+  The attack chosen for this project is a type of Denial-of-Service attack called a SYN flood attack. Denial-of-Service attacks’ main function is to halt a user’s access to network services through error-causing methods. As networks have a certain flow installed within them, that flow can also be congested by means of either saturating the bandwidth of a certain site, by breaking down the web servers on an application level, or by consuming the resources of a server. In this case, a SYN flood functions under the protocol type, and is used for consuming the server’s resources to deny network access to anyone that regularly uses that server.
 </p>
 <p>
   To understand SYN flood attacks more clearly, we must first explain how the Transmission Control Protocol (TCP) work. It’s supposed to provide a safe connection between a server and a client through a process called the “three-way handshake”, before sharing data on the application level. The way the three-way handshake works is that SYN packets are being sent from a Source IP client to a Destination IP server. In return, the Destination IP responds with a SYN/ACK packet sent to the Source IP, which is then supposed to be confirmed by the Source IP with an ACK packet sent in return to the Destination IP.
 </p>
 <p align="center">
   TCP Three Way Handshake: <br/>
-  <img src="https://i.imgur.com/RqsrFWf.png" height="80%" width="80%" alt="SYN Flood Research Project"/>
+  <img src="https://i.imgur.com/RqsrFWf.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
 </p>
 <p>
   What causes a SYN flood attack is a large amount of faulty three-way handshake protocols that happen when a TCP connection is made. If the Source IP address is spoofed, the connection gets paused since the Source IP address doesn’t exist in the first place, so no real connections can be made. Since the three-way handshake is incomplete, the volume of half connections that are being continuously made take up all of the machine network’s available bandwidth, which cause a Denial-of-Service for the user at the Destination IP address.
 </p>
 <p align="center">
   SYN Flood Attacks: <br/>
-  <img src="https://i.imgur.com/QZqwBDZ.png" height="80%" width="80%" alt="SYN Flood Research Project"/>
+  <img src="https://i.imgur.com/QZqwBDZ.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
 </p>
 <br />
 <p>
@@ -42,9 +42,8 @@ This research project goes through the process of analyzing the network traffic 
 <p>
   In conclusion, determining the type of protocol we’re dealing with, detecting the volume of connections made under a short amount of time and detecting the ratio of SYN packets over ACK packets should be enough information to detect a SYN flood attack properly.
 </p>
-<br />
 
-<h2><b>Code for Threat Detection Program</b></h2>
+<h2><b>Threat Detection Program</b></h2>
 <p>
   We need code that will take in the network traffic, analyze the TCP connection requests that are being sent on a time-based reference, and compare the rates of the tcp flags. Since the most popular method of packet analysis is through Wireshark, we can write a code that will take in a pcap file (Wireshark-based analysis file), analyze the number of TCP requests within one second timeframes and analyze the ratio of syn flags versus ack flags. 
 </p>
@@ -52,7 +51,7 @@ This research project goes through the process of analyzing the network traffic 
   If the packets with flags “tcp.flags.syn == 1” and “tcp.flags.ack == 0” amount both surpasses a total count of 100 per second and the packets with both “tcp.flags.syn == 1” and “tcp.flags.ack == 1” amount is under 10 per second, then the code should inform the user that a SYN flood is occurring. If those conditions are not met, then the attack is not a SYN flood. 
 </p>
 <p>
-  With python, we can implement the scapy module or pyshark to take in the info produced by Wireshark with a pcap wrapper. With java, we can implement jpcap or jNetPcap to take the necessary info from Wireshark with a pcap wrapper as well. We could also use the linux command “tcpdump” to dump the network traffic into a file with the specific TCP connections (tcpdump -r tcp -w fileToRead.txt), and analyze the fileToRead.txt to see how many TCP connections with the tags specified above are present in the network dump. For the code below, jNetPcap was the pcap wrapper package used.
+  With python, we can implement the scapy module or pyshark to take in the info produced by Wireshark with a pcap wrapper. With java, we can implement jpcap or jNetPcap to take the necessary info from Wireshark with a pcap wrapper as well. We could also use the linux command “tcpdump” to dump the network traffic into a file with the specific TCP connections (tcpdump -r tcp -w fileToRead.txt), and analyze the fileToRead.txt to see how many TCP connections with the tags specified above are present in the network dump. For the java pseudocode <a href="https://github.com/Simon3457/SYNFloodResearch/blob/main/SYNFloodDetectionPseudocode.java">here</a>, jNetPcap was the pcap wrapper package used.
 </p>
 
 <h2><b>Proposed Features</b></h2>
@@ -62,4 +61,18 @@ This research project goes through the process of analyzing the network traffic 
 </ol>
 
 <h2><b>Sample Output</b></h2>
-<p></p>
+<p>
+  Most values of TCP connections attempted per second almost always surpasses 100 connections per second, which is an abnormally large number of requests all at once.
+</p>
+<p align="center">
+  Wireshark IO Graphs: <br/>
+  <img src="https://i.imgur.com/Gm5IO2X.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
+</p>
+<br />
+<p>
+  Notice the time it takes from one packet request to another. The most time it takes for two TCP requests to reach the server is ~1 millisecond.
+</p>
+<p align="center">
+  Wireshark Output Results: <br/>
+  <img src="https://i.imgur.com/wMvsuhJ.png" height="50%" width="50%" alt="SYN Flood Research Project"/>
+</p>
