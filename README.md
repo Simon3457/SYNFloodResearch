@@ -1,7 +1,7 @@
 # SYN Flood Research Project
 
 <h2><b>Description</b></h2>
-This research project goes through the process of analyzing the network traffic of a VM on Wireshark after running a SYN flood attack program, and noting observations. The point of the project was to analyze what characteristics are indicative of certain attacks, how we can detect those attacks, how we can prevent those attacks and how we can recover any damages produced by these attacks.
+This research project goes through the process of analyzing the network traffic of a VM on Wireshark after running a SYN flood attack program, and noting observations. The point of the project was to analyze what characteristics are indicative of certain attacks (in this case SYN Flood attacks), how we can detect those attacks, how we can prevent those attacks and how we can recover any damages produced by these attacks.
 <br />
 
 
